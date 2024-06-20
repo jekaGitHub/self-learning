@@ -7,14 +7,14 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 from config import settings
-from users.forms import RegistrationForm, UserForm, ResetPasswordForm
+# from users.forms import RegistrationForm, UserForm, ResetPasswordForm
 from users.models import User
 
 
 # Create your views here.
 class RegisterView(CreateView):
     model = User
-    form_class = RegistrationForm
+    # form_class = RegistrationForm
     template_name = "users/register.html"
 
     def get_success_url(self):
@@ -30,7 +30,7 @@ class RegisterView(CreateView):
 class UserUpdateView(UpdateView):
     model = User
     success_url = reverse_lazy('users:profile')
-    form_class = UserForm
+    # form_class = UserForm
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -38,7 +38,7 @@ class UserUpdateView(UpdateView):
 
 class ResetPasswordView(PasswordResetView):
     email_template_name = 'users/reset_password.html'
-    form_class = ResetPasswordForm
+    # form_class = ResetPasswordForm
     template_name = 'users/reset_password.html'
 
     def get_success_url(self):

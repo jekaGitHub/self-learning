@@ -58,7 +58,9 @@ class Answer(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         verbose_name="Владелец ответа",
-        help_text="Укажите владельца ответа")
+        help_text="Укажите владельца ответа",
+        **NULLABLE
+    )
 
     answer = models.CharField(
         max_length=50,
@@ -72,6 +74,7 @@ class Answer(models.Model):
         related_name="answers",
         help_text="Выберите вопрос",
         verbose_name="Вопрос",
+        **NULLABLE
     )
 
     is_right = models.BooleanField(default=False, verbose_name='Ответ верный')

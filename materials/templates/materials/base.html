@@ -15,36 +15,46 @@
 <body>
 
 <header>
-{% include 'materials/includes/inc_menu.html' %}
+    {% include 'materials/includes/inc_menu.html' %}
 </header>
 
 <main role="main">
-
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">{{ title }}</h1>
-        </div>
-    </section>
-
-    <div class="album py-5 bg-light">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
-
-</main>
-
-<footer class="text-muted">
     <div class="container">
-        <p class="float-right">
-            <a href="#">Back to top</a>
-        </p>
-        <p>Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting
-            started guide</a>.</p>
+        {% block content %}
+        {% endblock %}
+
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    SelfLearning
+                    <small class="d-block mb-3 text-muted">&copy; 2023-{% now 'Y' %}</small>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Разделы</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Рассылки</a></li>
+                        <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                        <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                        <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                        <li><a class="text-muted" href="#">Микросервисы</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Дополнительно</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Мы пишем</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>О нас</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Контакты</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </div>
-</footer>
+</main>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

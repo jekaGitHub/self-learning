@@ -21,3 +21,7 @@ class MaterialsView(View):
             "materials": materials,
         }
         return render(request, 'materials/materials.html', context)
+
+
+class MaterialDetailView(DetailView):
+    model = Material

@@ -12,7 +12,7 @@
             <img src="{{ material.image | media_filter }}" alt="Material Image" class="img-fluid">
             <div class="card-body">
                 <p>{{ material.contents | truncatechars:100 }}</p>
-                <a href="#">
+                <a href="{% url 'materials:material-detail' material.pk %}">
                     <button type="button" class="btn btn-sm btn-outline-secondary">Подробнее</button>
                 </a>
             </div>

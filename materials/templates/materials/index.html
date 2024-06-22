@@ -1,0 +1,22 @@
+{% extends 'materials/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+<div class="row text-center">
+    {% for object in object_list %}
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+            </div>
+            <div class="card-body">
+                <p>{{ object.description }}</p>
+                <a href="#">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">К материалам</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

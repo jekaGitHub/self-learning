@@ -1,0 +1,23 @@
+{% extends 'materials/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+<div class="row text-center">
+    {% for material in materials %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ material.title }}</h4>
+            </div>
+            <img src="{{ material.image | media_filter }}" alt="Material Image" class="img-fluid">
+            <div class="card-body">
+                <p>{{ material.contents | truncatechars:100 }}</p>
+                <a href="#">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Подробнее</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

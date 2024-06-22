@@ -11,3 +11,13 @@ class HomeListView(ListView):
 
     def get_queryset(self):
         return Category.objects.all()
+
+
+class MaterialsView(View):
+    def get(self, request, pk, *args, **kwargs):
+        category = Category.objects.get(pk=pk)
+        materials = Material.objects.filter(category=category)
+        context = {
+            "materials": materials,
+        }
+        return render(request, 'materials/materials.html', context)

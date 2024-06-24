@@ -1,0 +1,25 @@
+{% extends 'materials/base.html' %}
+{% block content %}
+{% load my_tags %}
+
+<div class="row text-center">
+    {% for question in questions %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{ question.material }}</h4>
+            </div>
+            <div class="card-body">
+                <p>{{ question.question }}</p>
+                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                    <li>{{ question.answer_right }}</li>
+                    <li>{{ question.answer_wrong_1 }}</li>
+                    <li>{{ question.answer_wrong_2 }}</li>
+                    <li>{{ question.answer_wrong_3 }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

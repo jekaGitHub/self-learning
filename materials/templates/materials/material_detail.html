@@ -8,11 +8,10 @@
         </div>
         <img src="{{ object.image | media_filter }}" alt="Material Image" class="img-fluid">
         <div class="card-body">
-            <h1 class="card-title pricing-card-title">{{ object.price }}</h1>
             <div class="card-body">
                 <p>{{ object.contents }}</p>
             </div>
-            <a href="#">
+            <a href="{% url 'checking:questions' object.pk %}">
                 <button type="button" class="btn btn-lg btn-block btn-outline-primary">Пройти тестирование</button>
             </a>
         </div>

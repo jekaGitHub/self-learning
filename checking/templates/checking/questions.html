@@ -3,20 +3,46 @@
 {% load my_tags %}
 
 <div class="row text-center">
+    <div class="col-12">
+        <h4 class="my-0 font-weight-normal">{{ material }}</h4>
+    </div>
     {% for question in questions %}
     <div class="col-3">
         <div class="card mb-4 box-shadow">
-            <div class="card-header">
-                <h4 class="my-0 font-weight-normal">{{ question.material }}</h4>
-            </div>
             <div class="card-body">
                 <p>{{ question.question }}</p>
-                <ul class="list-unstyled mt-3 mb-4 text-start m-3">
-                    <li>{{ question.answer_right }}</li>
-                    <li>{{ question.answer_wrong_1 }}</li>
-                    <li>{{ question.answer_wrong_2 }}</li>
-                    <li>{{ question.answer_wrong_3 }}</li>
-                </ul>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ question.id }}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="flexRadioDefault1" value="{{ question.answer_right }}">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            {{ question.answer_right }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="flexRadioDefault2" value="{{ question.answer_wrong_1 }}">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            {{ question.answer_wrong_1 }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="flexRadioDefault3" value="{{ question.answer_wrong_2 }}">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            {{ question.answer_wrong_2 }}
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="answer" id="flexRadioDefault4" value="{{ question.answer_wrong_3 }}">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            {{ question.answer_wrong_3 }}
+                        </label>
+                    </div>
+                    <button class="btn btn-primary">Ответить</button>
+                </form>
+                {% for answer in question.answers_list %}
+                    Ответ пользователя: {{ answer }}
+                {% endfor %}
             </div>
         </div>
     </div>

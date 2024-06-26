@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 from materials.models import Material
@@ -5,7 +6,7 @@ from checking.models import Question, Answer
 from django.views.generic import View
 
 
-class QuestionsView(View):
+class QuestionsView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         material = Material.objects.get(pk=pk)
         questions = Question.objects.filter(material=material)

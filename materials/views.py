@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 
 from materials.models import Category, Material
-from django.views.generic import View, CreateView, ListView, DetailView, UpdateView, DeleteView, TemplateView
+from django.views.generic import View, ListView, DetailView
 
 
 class HomeListView(ListView):
@@ -13,7 +14,7 @@ class HomeListView(ListView):
         return Category.objects.all()
 
 
-class MaterialsView(View):
+class MaterialsView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         category = Category.objects.get(pk=pk)
         materials = Material.objects.filter(category=category)

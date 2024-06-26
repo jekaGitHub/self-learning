@@ -40,9 +40,13 @@
                     </div>
                     <button class="btn btn-primary mt-2">Ответить</button>
                 </form>
-<!--                {% for answer in question.answers_list %}-->
-<!--                    Ответ пользователя: {{ answer }}-->
-<!--                {% endfor %}-->
+                {% for answer in question.answers_list %}
+                    {% if answer.is_right %}
+                        <i>Ответ пользователя: Верно!</i>
+                    {% else %}
+                        <i>Ответ пользователя: Неверно!</i>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

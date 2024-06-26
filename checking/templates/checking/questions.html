@@ -4,13 +4,13 @@
 
 <div class="row text-center">
     <div class="col-12">
-        <h4 class="my-0 font-weight-normal">{{ material }}</h4>
+        <h3 class="my-0 font-weight-normal mb-4">{{ material }}</h3>
     </div>
     {% for question in questions %}
-    <div class="col-3">
+    <div class="col-12 text-left">
         <div class="card mb-4 box-shadow">
             <div class="card-body">
-                <p>{{ question.question }}</p>
+                <p>{{ question.id }}. {{ question.question }}</p>
                 <form method="post">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ question.id }}">
@@ -38,11 +38,11 @@
                             {{ question.answer_wrong_3 }}
                         </label>
                     </div>
-                    <button class="btn btn-primary">Ответить</button>
+                    <button class="btn btn-primary mt-2">Ответить</button>
                 </form>
-                {% for answer in question.answers_list %}
-                    Ответ пользователя: {{ answer }}
-                {% endfor %}
+<!--                {% for answer in question.answers_list %}-->
+<!--                    Ответ пользователя: {{ answer }}-->
+<!--                {% endfor %}-->
             </div>
         </div>
     </div>

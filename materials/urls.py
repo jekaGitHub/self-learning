@@ -7,6 +7,6 @@ app_name = MaterialsConfig.name
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
-    path('chapters/<int:pk>/materials', MaterialsView.as_view(), name='materials'),
+    path('chapters/<int:pk>/materials/', MaterialsView.as_view(), name='materials'),
     path('view/<int:pk>/', MaterialDetailView.as_view(), name='material-detail'),
 ]

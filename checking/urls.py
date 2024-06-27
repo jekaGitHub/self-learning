@@ -6,5 +6,5 @@ from checking.views import QuestionsView
 app_name = CheckingConfig.name
 
 urlpatterns = [
-    path('<int:pk>/questions', QuestionsView.as_view(), name='questions'),
+    path('<int:pk>/questions/', QuestionsView.as_view(), name='questions'),
 ]

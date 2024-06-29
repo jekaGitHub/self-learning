@@ -12,6 +12,6 @@ class QuestionAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ("id", "owner", "question", "answer", "is_right",)
+    list_display = ("id", "is_right", "owner", "question", "answer",)
     list_filter = ("owner", "is_right",)
     search_fields = ("question",)

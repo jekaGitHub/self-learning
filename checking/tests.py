@@ -69,7 +69,9 @@ class AnswerModelTest(TestCase):
 class QuestionsViewTest(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create(email='testuser@mail.ru', password='12345')
+        self.user = User.objects.create(email='testuser@mail.ru', password='12345', is_active=True)
+        self.user.set_password('12345')
+        self.user.save()
         self.material = Material.objects.create(title='Тестовый материал')
 
         # Создаем несколько тестовых вопросов для материала
@@ -86,7 +88,7 @@ class QuestionsViewTest(TestCase):
 
     def test_questions_view_get(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        url = reverse('questions', args=[self.material.pk])
+        url = reverse('checking:questions', args=[self.material.pk])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'checking/questions.html')
@@ -96,7 +98,7 @@ class QuestionsViewTest(TestCase):
 
     def test_questions_view_post_correct_answer(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        url = reverse('questions', args=[self.material.pk])
+        url = reverse('checking:questions', args=[self.material.pk])
         data = {'id': self.question1.id, 'answer': 'Ответ 1'}
         response = self.client.post(url, data, HTTP_REFERER='/')
         self.assertEqual(response.status_code, 302)  # Проверяем редирект после POST-запроса
@@ -104,7 +106,7 @@ class QuestionsViewTest(TestCase):
 
     def test_questions_view_post_incorrect_answer(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        url = reverse('questions', args=[self.material.pk])
+        url = reverse('checking:questions', args=[self.material.pk])
         data = {'id': self.question1.id, 'answer': 'Неверный ответ'}
         response = self.client.post(url, data, HTTP_REFERER='/')
         self.assertEqual(response.status_code, 302)  # Проверяем редирект после POST-запроса

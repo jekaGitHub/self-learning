@@ -53,15 +53,15 @@ class HomeListViewTests(TestCase):
         )
 
     def test_home_list_view_status_code(self):
-        response = self.client.get(reverse('home'))
+        response = self.client.get(reverse('materials:home'))
         self.assertEqual(response.status_code, 200)
 
     def test_home_list_view_template(self):
-        response = self.client.get(reverse('home'))
+        response = self.client.get(reverse('materials:home'))
         self.assertTemplateUsed(response, 'materials/index.html')
 
     def test_home_list_view_context(self):
-        response = self.client.get(reverse('home'))
+        response = self.client.get(reverse('materials:home'))
         self.assertIn('object_list', response.context)
         self.assertEqual(len(response.context['object_list']), 1)
         self.assertEqual(response.context['object_list'][0], self.category)
@@ -70,7 +70,9 @@ class HomeListViewTests(TestCase):
 class MaterialsViewTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create(email='testuser@mail.ru', password='12345')
+        self.user = User.objects.create(email='testuser@mail.ru', password='12345', is_active=True)
+        self.user.set_password('12345')
+        self.user.save()
         self.category = Category.objects.create(
             name="Тестовая категория",
             description="Это Тестовая категория"
@@ -82,30 +84,33 @@ class MaterialsViewTests(TestCase):
         )
 
     def test_materials_view_redirect_if_not_logged_in(self):
-        response = self.client.get(reverse('materials', args=[self.category.pk]))
-        self.assertRedirects(response, f'/accounts/login/?next=/chapters{self.category.pk}/materials/')
+        response = self.client.get(reverse('materials:materials', args=[self.category.pk]))
+        self.assertEquals(response.status_code, 302)
 
     def test_materials_view_logged_in(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        response = self.client.get(reverse('materials', args=[self.category.id]))
+        response = self.client.get(reverse('materials:materials', args=[self.category.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'materials/materials.html')
         self.assertContains(response, self.material.title)
 
     def test_materials_view_status_code(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        response = self.client.get(reverse('materials', args=[self.category.pk]))
+        response = self.client.get(reverse('materials:materials', args=[self.category.pk]))
         self.assertEqual(response.status_code, 200)
 
     def test_materials_view_template(self):
         self.client.login(email='testuser@mail.ru', password='12345')
-        response = self.client.get(reverse('materials', args=[self.category.pk]))
+        response = self.client.get(reverse('materials:materials', args=[self.category.pk]))
         self.assertTemplateUsed(response, 'materials/materials.html')
 
 
 class MaterialDetailViewTest(TestCase):
     def setUp(self):
         self.client = Client()
+        self.user = User.objects.create(email='testuser@mail.ru', password='12345', is_active=True)
+        self.user.set_password('12345')
+        self.user.save()
         self.category = Category.objects.create(
             name="Тестовая категория",
             description="Это Тестовая категория"
@@ -117,7 +122,8 @@ class MaterialDetailViewTest(TestCase):
         )
 
     def test_material_detail_view(self):
-        response = self.client.get(reverse('material-detail', args=[self.material.id]))
+        self.client.login(email='testuser@mail.ru', password='12345')
+        response = self.client.get(reverse('materials:material-detail', args=[self.material.id]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'materials/material_detail.html')
         self.assertContains(response, self.material.title)

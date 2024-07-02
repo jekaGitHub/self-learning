@@ -6,7 +6,7 @@
     <div class="col-6 col-md">
         <h5>Разделы</h5>
         <ul class="list-unstyled text-small">
-            {% for object in object_list %}
+            {% for object in chapters %}
             <li>
                 <a class="text-muted" href="{% url 'materials:materials' object.pk %}">{{ object.name }}</a>
             </li>

@@ -24,5 +24,5 @@ class MaterialsView(LoginRequiredMixin, View):
         return render(request, 'materials/materials.html', context)
 
 
-class MaterialDetailView(DetailView):
+class MaterialDetailView(LoginRequiredMixin, DetailView):
     model = Material

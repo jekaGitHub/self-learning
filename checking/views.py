@@ -11,7 +11,7 @@ class QuestionsView(LoginRequiredMixin, View):
         material = Material.objects.get(pk=pk)
         questions = Question.objects.filter(material=material)
         for question in questions:
-            question.answers_list = Answer.objects.filter(owner=self.request.user, question=question)
+            question.answers_list = Answer.objects.filter(owner=self.request.user, question=question).last()
         context = {
             "questions": questions,
             "material": material,
